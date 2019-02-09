@@ -1,7 +1,25 @@
 //cd Desktop/LZ/Tutorials/Treehouse/TechDegree/techdegree-project-5
 //python -m SimpleHTTPServer
 const $gallery = $("#gallery");
+
 $.ajax({
+  url: "https://randomuser.me/api/?results=12",
+  dataType: "json",
+  success: function(data) {
+    //console.log(data);
+    $.each(data.results, function(i) {
+      console.log("Here is a name " + data.results[i].name.first);
+      $('<div class="card"/>').appendTo($gallery);
+      $('<div class="card-img-container"/>').appendTo(".card");
+      $('<img class="card-img" src="#" alt="profile picture">').appendTo(
+        ".card-img-container"
+      );
+      $(".card-img").attr("src", data.results[i].picture.large);
+    });
+  }
+});
+
+/*$.ajax({
   url: "https://randomuser.me/api/?results=12",
   dataType: "json",
   success: function(data) {
@@ -33,4 +51,4 @@ $.ajax({
       data.results[0].location.city + ", " + data.results[0].location.state
     );
   }
-});
+});*/
