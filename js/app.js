@@ -6,8 +6,7 @@ $.ajax({
   dataType: "json",
   success: function(data) {
     console.log(data);
-    console.log(data.results[0].picture.large);
-    console.log(data.results[0].name.first);
+
     $('<div class="card"/>').appendTo($gallery);
     $('<div class="card-img-container"/>').appendTo(".card");
     $('<img class="card-img" src="#" alt="profile picture">').appendTo(
@@ -25,6 +24,13 @@ $.ajax({
       data.results[0].name.first + " " + data.results[0].name.last
     );
     $('<p class="card-text">email</p>').insertAfter(".card-name");
+
+    $(".card-text").text(data.results[0].email);
+
     $('<p class="card-text cap">city, state</p>').insertAfter(".card-text");
+
+    $(".cap").text(
+      data.results[0].location.city + ", " + data.results[0].location.state
+    );
   }
 });
