@@ -1,54 +1,26 @@
 //cd Desktop/LZ/Tutorials/Treehouse/TechDegree/techdegree-project-5
 //python -m SimpleHTTPServer
-const $gallery = $("#gallery");
+let $gallery = $("div#gallery.gallery");
+let $images = [];
+let $firstName = [];
+console.log($gallery);
 
 $.ajax({
   url: "https://randomuser.me/api/?results=12",
   dataType: "json",
   success: function(data) {
-    //console.log(data);
-    $.each(data.results, function(i) {
-      console.log("Here is a name " + data.results[i].name.first);
-      $('<div class="card"/>').appendTo($gallery);
-      $('<div class="card-img-container"/>').appendTo(".card");
-      $('<img class="card-img" src="#" alt="profile picture">').appendTo(
-        ".card-img-container"
-      );
-      $(".card-img").attr("src", data.results[i].picture.large);
+    console.log(data.results);
+    $.each(data.results, function(i, img, name) {
+      $images.push(img.picture.thumbnail);
+      console.log(img.picture.thumbnail);
+      $firstName.push(data.results[i].name.first);
+
+      let card = $('<div class="card"/>').appendTo($gallery);
+      let imgContainer = $('<div class="card-img-container"/>').appendTo(card);
+      let image = $(
+        '<img class="card-img" src="#" alt="profile picture">'
+      ).appendTo(imgContainer);
+      let imageSource = $(".card-img").attr("src", $images[i]);
     });
   }
 });
-
-/*$.ajax({
-  url: "https://randomuser.me/api/?results=12",
-  dataType: "json",
-  success: function(data) {
-    console.log(data);
-
-    $('<div class="card"/>').appendTo($gallery);
-    $('<div class="card-img-container"/>').appendTo(".card");
-    $('<img class="card-img" src="#" alt="profile picture">').appendTo(
-      ".card-img-container"
-    );
-
-    $(".card-img").attr("src", data.results[0].picture.large);
-
-    $('<div class="card-info-container">').insertAfter(".card-img-container");
-
-    $('<h3 id="name" class="card-name cap" />').appendTo(
-      ".card-info-container"
-    );
-    $("h3#name").text(
-      data.results[0].name.first + " " + data.results[0].name.last
-    );
-    $('<p class="card-text">email</p>').insertAfter(".card-name");
-
-    $(".card-text").text(data.results[0].email);
-
-    $('<p class="card-text cap">city, state</p>').insertAfter(".card-text");
-
-    $(".cap").text(
-      data.results[0].location.city + ", " + data.results[0].location.state
-    );
-  }
-});*/
