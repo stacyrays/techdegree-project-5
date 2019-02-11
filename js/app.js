@@ -69,9 +69,25 @@ $.ajax({
           item.location.city
         }, ${item.location.state} ${item.location.postcode}</p>`
       ).appendTo($modalInfoContainer);
+
+      //DOB
+      let $dobToParse = item.dob.date;
+      let $dobYearParsed = $dobToParse.substring(0, 4);
+      let $dobMonthParsed = $dobToParse.substring(5, 7);
+      let $dobDayParsed = $dobToParse.substring(8, 10);
+      console.log($dobDayParsed);
+
       let $modalBirthday = $(
-        `<p class="modal-text">${item.dob.date}</p>`
+        `<p class="modal-text"> Birthday: ${$dobMonthParsed}/${$dobDayParsed}/${$dobYearParsed}</p>`
       ).appendTo($modalInfoContainer);
+
+      //BTN CLOSE EVENT
+      $btnClose.on("click", function() {
+        $.each($(".modal"), function(i, item) {
+          item.style.display = "none";
+          $modalContainer.css("display", "none");
+        });
+      });
 
       //CLICK CARD
       $card.on("click", function() {
