@@ -77,12 +77,9 @@ $.ajax({
       $card.on("click", function() {
         //console.log(event.target.parentNode.parentNode);
         //console.log($(".card")[0]);
-        if (event.target.parentNode.parentNode === $(".card")[0]) {
+        if (event.target.parentNode.parentNode === $(".card")[i]) {
           $modalContainer.css("display", "block");
-          document.getElementsByClassName("modal")[0].style.display = "block";
-        } else if (event.target.parentNode.parentNode === $(".card")[1]) {
-          $modalContainer.css("display", "block");
-          document.getElementsByClassName("modal")[1].style.display = "block";
+          document.getElementsByClassName("modal")[i].style.display = "block";
         }
       });
     });
