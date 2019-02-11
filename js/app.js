@@ -75,11 +75,17 @@ $.ajax({
 
       //CLICK CARD
       $card.on("click", function() {
-        if ($(this)[i] === $card[i]) {
-          console.log($card[i]);
-          $modalContainer.css("display", "block");
-          //$modalContainer.childNodes[i].css("display", "block");
+        console.log(event.target.parentNode.parentNode);
+        console.log(document.getElementsByClassName("card")[0]);
+        if (
+          event.target.parentNode.parentNode ===
+          document.getElementsByClassName("card")[0]
+        ) {
+          console.log("yes");
         }
+        //console.log($(this));
+        //$modalContainer.css("display", "block");
+        //$modalContainer.childNodes[i].css("display", "block");
       });
     });
   }
