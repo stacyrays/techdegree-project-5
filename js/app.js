@@ -70,7 +70,7 @@ $.ajax({
         }, ${item.location.state} ${item.location.postcode}</p>`
       ).appendTo($modalInfoContainer);
 
-      //DOB
+      //Parse DOB
       let $dobToParse = item.dob.date;
       let $dobYearParsed = $dobToParse.substring(0, 4);
       let $dobMonthParsed = $dobToParse.substring(5, 7);
@@ -91,8 +91,6 @@ $.ajax({
 
       //CLICK CARD
       $card.on("click", function() {
-        //console.log(event.target.parentNode.parentNode);
-        //console.log($(".card")[0]);
         if (event.target.parentNode.parentNode === $(".card")[i]) {
           $modalContainer.css("display", "block");
           document.getElementsByClassName("modal")[i].style.display = "block";
