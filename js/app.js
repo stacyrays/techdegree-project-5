@@ -7,8 +7,6 @@ $.ajax({
   url: "https://randomuser.me/api/?results=12",
   dataType: "json",
   success: function(data) {
-    console.log(data.results);
-
     //BUILD CARD GRID
     $.each(data.results, function(i, item) {
       let $card = $('<div class="card"/>').appendTo($gallery);
