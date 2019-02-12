@@ -91,7 +91,13 @@ $.ajax({
 
       //CLICK CARD
       $card.on("click", function() {
-        if (event.target.parentNode.parentNode === $(".card")[i]) {
+        console.log(event.target);
+
+        if (
+          event.target.parentNode.parentNode === $(".card")[i] ||
+          event.target.parentNode === $(".card")[i] ||
+          event.target === $(".card")[i]
+        ) {
           $modalContainer.css("display", "block");
           document.getElementsByClassName("modal")[i].style.display = "block";
         }
