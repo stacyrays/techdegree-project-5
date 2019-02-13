@@ -6,37 +6,45 @@ const form = $(".search-container").append(`<form action="#" method="get">
 </form>`);
 
 const $gallery = $("#gallery");
-let $modalContainer = $('<div class="modal-container"/>').insertAfter($gallery);
+const $modalContainer = $('<div class="modal-container"/>').insertAfter(
+  $gallery
+);
 
-let $modal = $('<div class="modal"/>').appendTo($modalContainer);
-let $btnClose = $(
+const $modal = $('<div class="modal"/>').appendTo($modalContainer);
+const $btnClose = $(
   '<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>'
 ).appendTo($modal);
-let $modalInfoContainer = $('<div class="modal-info-container" />').insertAfter(
-  $btnClose
-);
+const $modalInfoContainer = $(
+  '<div class="modal-info-container" />'
+).insertAfter($btnClose);
 //Build modal
-$modalImage = $(
+const $modalImage = $(
   `<img class="modal-img" src="#" alt="profile picture">`
 ).appendTo($modalInfoContainer);
 
-$modalName = $(`<h3 id="name" class="modal-name cap"></h3>`).appendTo(
+const $modalName = $(`<h3 id="name" class="modal-name cap"></h3>`).appendTo(
   $modalInfoContainer
 );
 
-$modalEmail = $(`<p class="modal-text"></p>`).appendTo($modalInfoContainer);
-
-$modalLocation = $(`<p class="modal-text cap"></p>`).appendTo(
+const $modalEmail = $(`<p class="modal-text"></p>`).appendTo(
   $modalInfoContainer
 );
 
-$hr = $(`<hr>`).appendTo($modalInfoContainer);
+const $modalLocation = $(`<p class="modal-text cap"></p>`).appendTo(
+  $modalInfoContainer
+);
 
-$modalPhone = $(`<p class="modal-text"></p>`).appendTo($modalInfoContainer);
+const $hr = $(`<hr>`).appendTo($modalInfoContainer);
 
-$modalAddress = $(`<p class="modal-text"></p>`).appendTo($modalInfoContainer);
+const $modalPhone = $(`<p class="modal-text"></p>`).appendTo(
+  $modalInfoContainer
+);
 
-$modalBirthday = $(`<p class="modal-text"> Birthday: </p>`).appendTo(
+const $modalAddress = $(`<p class="modal-text"></p>`).appendTo(
+  $modalInfoContainer
+);
+
+const $modalBirthday = $(`<p class="modal-text"> Birthday: </p>`).appendTo(
   $modalInfoContainer
 );
 
@@ -46,46 +54,46 @@ $.ajax({
   success: function(data) {
     //BUILD CARD GRID
     $.each(data.results, function(i, item) {
-      let $card = $('<div class="card"/>').appendTo($gallery);
-      let $imgContainer = $('<div class="card-img-container"/>').appendTo(
+      const $card = $('<div class="card"/>').appendTo($gallery);
+      const $imgContainer = $('<div class="card-img-container"/>').appendTo(
         $card
       );
-      let $image = $(
+      const $image = $(
         `<img class="card-img" src="${
           item.picture.thumbnail
         }" alt="profile picture">`
       ).appendTo($imgContainer);
-      let $cardInfoContainer = $('<div class="card-info-container">').appendTo(
-        $card
-      );
-      let $name = $(
+      const $cardInfoContainer = $(
+        '<div class="card-info-container">'
+      ).appendTo($card);
+      const $name = $(
         `<h3 id="name" class="card-name cap">${item.name.first} ${
           item.name.last
         } </h3>`
       ).appendTo($cardInfoContainer);
-      let $cardEmail = $(`<p class="card-text">${item.email}</p>`).appendTo(
+      const $cardEmail = $(`<p class="card-text">${item.email}</p>`).appendTo(
         $cardInfoContainer
       );
-      let $cardLocation = $(
+      const $cardLocation = $(
         `<p class="card-text cap">${item.location.city}</p>`
       ).appendTo($cardInfoContainer);
 
-      let $medImageURL = item.picture.medium;
-      let $firstName = item.name.first;
-      let $lastName = item.name.last;
-      let $email = item.email;
-      let $location = item.location.city;
-      let $phone = item.phone;
-      let $street = item.location.street;
-      let $city = item.location.city;
-      let $state = item.location.state;
-      let $postal = item.location.postcode;
+      const $medImageURL = item.picture.medium;
+      const $firstName = item.name.first;
+      const $lastName = item.name.last;
+      const $email = item.email;
+      const $location = item.location.city;
+      const $phone = item.phone;
+      const $street = item.location.street;
+      const $city = item.location.city;
+      const $state = item.location.state;
+      const $postal = item.location.postcode;
 
       //Parse DOB
-      let $dobToParse = item.dob.date;
-      let $dobYearParsed = $dobToParse.substring(0, 4);
-      let $dobMonthParsed = $dobToParse.substring(5, 7);
-      let $dobDayParsed = $dobToParse.substring(8, 10);
+      const $dobToParse = item.dob.date;
+      const $dobYearParsed = $dobToParse.substring(0, 4);
+      const $dobMonthParsed = $dobToParse.substring(5, 7);
+      const $dobDayParsed = $dobToParse.substring(8, 10);
 
       //CLICK CARD
       $card.on("click", function() {
@@ -100,15 +108,15 @@ $.ajax({
           $modal.css("display", "block");
 
           //Build modal with data
-          $(".modal-img").attr("src", $medImageURL);
-          $(".modal-name").text($firstName + " " + $lastName);
-          $(".modal-text:eq(0)").text($email);
-          $(".modal-text:eq(1)").text($city);
-          $(".modal-text:eq(2)").text($phone);
-          $(".modal-text:eq(3)").text(
+          $modalImage.attr("src", $medImageURL);
+          $modalName.text($firstName + " " + $lastName);
+          $modalEmail.text($email);
+          $modalLocation.text($city);
+          $modalPhone.text($phone);
+          $modalAddress.text(
             $street + ", " + $city + ", " + $state + " " + $postal
           );
-          $(".modal-text:eq(4)").text(
+          $modalBirthday.text(
             "Birthday: " +
               $dobMonthParsed +
               "/" +
@@ -116,18 +124,6 @@ $.ajax({
               "/" +
               $dobYearParsed
           );
-
-          /*$modalPhone = $(`<p class="modal-text">${$phone}</p>`).appendTo(
-            $modalInfoContainer
-          );
-          $modalAddress = $(
-            `<p class="modal-text">${$street}, ${$city}, ${$state} ${$postal}</p>`
-          ).appendTo($modalInfoContainer);
-          $modalBirthday = $(
-            `<p class="modal-text"> Birthday: ${$dobMonthParsed}/${$dobDayParsed}/${$dobYearParsed} </p>`
-          ).appendTo($modalInfoContainer);
-          console.log($medImageURL);*/
-        }
         //BTN CLOSE EVENT
         $btnClose.on("click", function() {
           $.each($(".modal"), function(i, item) {
