@@ -5,7 +5,7 @@ const form = $(".search-container").append(`<form action="#" method="get">
 <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
 </form>`);
 
-let $gallery = $("div#gallery.gallery");
+const $gallery = $("#gallery");
 let $modalContainer = $('<div class="modal-container"/>').insertAfter($gallery);
 
 let $modal = $('<div class="modal"/>').appendTo($modalContainer);
@@ -131,7 +131,7 @@ $.ajax({
         //BTN CLOSE EVENT
         $btnClose.on("click", function() {
           $.each($(".modal"), function(i, item) {
-            item.style.display = "none";
+            //item.style.display = "none";
             $modalContainer.css("display", "none");
           });
         });
