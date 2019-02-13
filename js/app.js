@@ -10,6 +10,7 @@ const $modalContainer = $('<div class="modal-container"/>').insertAfter(
   $gallery
 );
 
+//Build modal
 const $modal = $('<div class="modal"/>').appendTo($modalContainer);
 const $btnClose = $(
   '<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>'
@@ -17,7 +18,7 @@ const $btnClose = $(
 const $modalInfoContainer = $(
   '<div class="modal-info-container" />'
 ).insertAfter($btnClose);
-//Build modal
+
 const $modalImage = $(
   `<img class="modal-img" src="#" alt="profile picture">`
 ).appendTo($modalInfoContainer);
@@ -124,12 +125,10 @@ $.ajax({
               "/" +
               $dobYearParsed
           );
+        }
         //BTN CLOSE EVENT
         $btnClose.on("click", function() {
-          $.each($(".modal"), function(i, item) {
-            //item.style.display = "none";
-            $modalContainer.css("display", "none");
-          });
+          $modalContainer.css("display", "none");
         });
       });
     });
