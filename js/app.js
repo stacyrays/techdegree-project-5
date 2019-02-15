@@ -6,6 +6,7 @@ const form = $(".search-container").append(`<form action="#" method="get">
 </form>`);
 
 const searchField = document.getElementById("search-input");
+
 const $submitButton = $("#search-submit");
 
 let names = [];
@@ -144,16 +145,18 @@ $.ajax({
 });
 
 const searchPeople = () => {
-  const searchTerm = searchField.value;
+  const searchTerm = searchField.value.toLowerCase();
   const namesOnCards = document.getElementsByTagName("h3");
   for (i = 0; i < namesOnCards.length; i++) {
+    //namesOnCards[i].toLowerCase();
     console.log(
       "H3 innerHTML " + namesOnCards[i].innerHTML + "INPUT value " + searchTerm
     );
-    if (namesOnCards[i].innerHTML == searchTerm) {
+    if (namesOnCards[i].innerHTML.includes(searchTerm)) {
       console.log("YES, they match");
     } else {
       console.log("NO, they do not match");
+      namesOnCards[i].parentNode.parentNode.style.display = "none";
     }
   }
 };
