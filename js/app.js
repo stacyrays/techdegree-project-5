@@ -5,6 +5,11 @@ const form = $(".search-container").append(`<form action="#" method="get">
 <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 </form>`);
 
+const searchField = document.getElementById("search-input");
+const $submitButton = $("#search-submit");
+
+let names = [];
+
 const $gallery = $("#gallery");
 const $modalContainer = $('<div class="modal-container"/>').insertAfter(
   $gallery
@@ -53,8 +58,11 @@ $.ajax({
   url: "https://randomuser.me/api/?results=12",
   dataType: "json",
   success: function(data) {
+    //console.log("top console log " + data.results[0].name.first);
+
     //BUILD CARD GRID
     $.each(data.results, function(i, item) {
+      names.push(item.name.first + " " + item.name.last);
       const $card = $('<div class="card"/>').appendTo($gallery);
       const $imgContainer = $('<div class="card-img-container"/>').appendTo(
         $card
@@ -133,4 +141,24 @@ $.ajax({
       });
     });
   }
+});
+
+const searchPeople = () => {
+  const searchTerm = searchField.value;
+  const namesOnCards = document.getElementsByTagName("h3");
+  for (i = 0; i < namesOnCards.length; i++) {
+    console.log(
+      "H3 innerHTML " + namesOnCards[i].innerHTML + "INPUT value " + searchTerm
+    );
+    if (namesOnCards[i].innerHTML == searchTerm) {
+      console.log("YES, they match");
+    } else {
+      console.log("NO, they do not match");
+    }
+  }
+};
+
+$("form").submit(function(evt) {
+  evt.preventDefault();
+  searchPeople();
 });
