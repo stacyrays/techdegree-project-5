@@ -9,7 +9,9 @@ const searchField = document.getElementById("search-input");
 
 const $submitButton = $("#search-submit");
 
-let names = [];
+let arrowCounter = 0;
+
+//let names = [];
 
 const $gallery = $("#gallery");
 const $modalContainer = $('<div class="modal-container"/>').insertAfter(
@@ -63,7 +65,7 @@ $.ajax({
 
     //BUILD CARD GRID
     $.each(data.results, function(i, item) {
-      names.push(item.name.first + " " + item.name.last);
+      //names.push(item.name.first + " " + item.name.last);
       const $card = $('<div class="card"/>').appendTo($gallery);
       const $imgContainer = $('<div class="card-img-container"/>').appendTo(
         $card
@@ -100,7 +102,7 @@ $.ajax({
       const $postal = item.location.postcode;
 
       //Parse DOB
-      const $dobToParse = item.dob.date;
+      let $dobToParse = item.dob.date;
       const $dobYearParsed = $dobToParse.substring(0, 4);
       const $dobMonthParsed = $dobToParse.substring(5, 7);
       const $dobDayParsed = $dobToParse.substring(8, 10);
@@ -108,6 +110,7 @@ $.ajax({
       //CLICK CARD
       $card.on("click", function() {
         console.log($(this));
+
         if (
           event.target.parentNode.parentNode === $(".card")[i] ||
           event.target.parentNode === $(".card")[i] ||
@@ -126,6 +129,7 @@ $.ajax({
           $modalAddress.text(
             $street + ", " + $city + ", " + $state + " " + $postal
           );
+
           $modalBirthday.text(
             "Birthday: " +
               $dobMonthParsed +
@@ -135,9 +139,84 @@ $.ajax({
               $dobYearParsed
           );
         }
+        //$(document).on("keydown", function(e) {
+        document.addEventListener("keydown", function(event) {
+          if (event.keyCode === 37) {
+            arrowCounter = arrowCounter + 1;
+            //console.log("you clicked the left arrow key");
+            console.log(arrowCounter);
+            //Build modal with data
+            $modalImage.attr(
+              "src",
+              data.results[i - arrowCounter].picture.medium
+            );
+            $modalName.text(
+              data.results[i - arrowCounter].name.first +
+                " " +
+                data.results[i - arrowCounter].name.last
+            );
+            $modalEmail.text(data.results[i - arrowCounter].email);
+            $modalLocation.text(data.results[i - arrowCounter].location.city);
+            $modalPhone.text(data.results[i - arrowCounter].phone);
+            $modalAddress.text(
+              $street +
+                ", " +
+                data.results[i - arrowCounter].location.city +
+                ", " +
+                data.results[i - arrowCounter].location.state +
+                " " +
+                data.results[i - arrowCounter].location.postcode
+            );
+            $dobToParse = data.results[i - arrowCounter].dob.date;
+            $modalBirthday.text(
+              "Birthday: " +
+                $dobMonthParsed +
+                "/" +
+                $dobDayParsed +
+                "/" +
+                $dobYearParsed
+            );
+          } else if (event.keyCode === 39) {
+            //console.log("you clicked the right arrow key");
+            arrowCounter = arrowCounter - 1;
+            console.log(arrowCounter);
+            //Build modal with data
+            $modalImage.attr(
+              "src",
+              data.results[i - arrowCounter].picture.medium
+            );
+            $modalName.text(
+              data.results[i - arrowCounter].name.first +
+                " " +
+                data.results[i - arrowCounter].name.last
+            );
+            $modalEmail.text(data.results[i - arrowCounter].email);
+            $modalLocation.text(data.results[i - arrowCounter].location.city);
+            $modalPhone.text(data.results[i - arrowCounter].phone);
+            $modalAddress.text(
+              $street +
+                ", " +
+                data.results[i - arrowCounter].location.city +
+                ", " +
+                data.results[i - arrowCounter].location.state +
+                " " +
+                data.results[i - arrowCounter].location.postcode
+            );
+            $dobToParse = data.results[i - arrowCounter].dob.date;
+            $modalBirthday.text(
+              "Birthday: " +
+                $dobMonthParsed +
+                "/" +
+                $dobDayParsed +
+                "/" +
+                $dobYearParsed
+            );
+          }
+        });
         //BTN CLOSE EVENT
         $btnClose.on("click", function() {
           $modalContainer.css("display", "none");
+          arrowCounter = 0;
         });
       });
     });
