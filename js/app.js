@@ -143,9 +143,8 @@ $.ajax({
         document.addEventListener("keydown", function(event) {
           if (event.keyCode === 37) {
             arrowCounter = arrowCounter + 1;
-            //console.log("you clicked the left arrow key");
-            console.log(arrowCounter);
-            //Build modal with data
+            console.log("Arrow counter is now " + arrowCounter);
+
             $modalImage.attr(
               "src",
               data.results[i - arrowCounter].picture.medium
@@ -177,10 +176,9 @@ $.ajax({
                 $dobYearParsed
             );
           } else if (event.keyCode === 39) {
-            //console.log("you clicked the right arrow key");
             arrowCounter = arrowCounter - 1;
-            console.log(arrowCounter);
-            //Build modal with data
+            console.log("Arrow counter is now " + arrowCounter);
+
             $modalImage.attr(
               "src",
               data.results[i - arrowCounter].picture.medium
