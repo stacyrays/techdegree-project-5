@@ -141,9 +141,8 @@ $.ajax({
         $(document)
           .unbind("keydown")
           .bind("keydown", function(e) {
-            if (event.keyCode === 37) {
+            if (event.keyCode === 37 && i - arrowCounter !== 0) {
               arrowCounter = arrowCounter + 1;
-              console.log("Arrow counter is now " + arrowCounter);
 
               $modalImage.attr(
                 "src",
@@ -175,9 +174,9 @@ $.ajax({
                   "/" +
                   $dobYearParsed
               );
-            } else if (event.keyCode === 39) {
+            } else if (event.keyCode === 39 && i - arrowCounter !== 11) {
               arrowCounter = arrowCounter - 1;
-              console.log("Arrow counter is now " + arrowCounter);
+              console.log("Arrow counter plus i is " + (i - arrowCounter));
 
               $modalImage.attr(
                 "src",
