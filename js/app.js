@@ -55,12 +55,11 @@ const $modalBirthday = $(`<p class="modal-text"> Birthday: </p>`).appendTo(
   $modalInfoContainer
 );
 
+//Grab the data (for 12 results) and display it in cards and when clicked corresponding modal with more details displays
 $.ajax({
   url: "https://randomuser.me/api/?results=12",
   dataType: "json",
   success: function(data) {
-    //console.log("top console log " + data.results[0].name.first);
-
     //BUILD CARD GRID
     $.each(data.results, function(i, item) {
       //names.push(item.name.first + " " + item.name.last);
@@ -105,7 +104,7 @@ $.ajax({
       const $dobMonthParsed = $dobToParse.substring(5, 7);
       const $dobDayParsed = $dobToParse.substring(8, 10);
 
-      //CLICK CARD
+      //CLICK CARD event
       $card.on("click", function() {
         console.log($(this));
 
@@ -138,6 +137,9 @@ $.ajax({
           );
         }
 
+        //Use left and right arrow keys to cycle through the modal data
+
+        //My keydown event was firing multiple times, and couldn't figure it out, so reached out in Slack Unit 05 channel, and help from Ewen pointed me in the direction to find this stack overflow page (to unbind the event): https://stackoverflow.com/questions/7987454/input-fires-keypress-event-twice
         $(document)
           .unbind("keydown")
           .bind("keydown", function(e) {
@@ -220,6 +222,7 @@ $.ajax({
   }
 });
 
+//Dynamically added search feature
 const searchPeople = () => {
   const searchTerm = searchField.value.toLowerCase();
   const namesOnCards = document.getElementsByTagName("h3");

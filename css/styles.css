@@ -2,7 +2,8 @@
    Public API Request
 ======================================== */
 
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+/*Changed Google font*/
+@import url("https://fonts.googleapis.com/css?family=Quicksand");
 
 * {
   box-sizing: border-box;
@@ -15,7 +16,7 @@ body {
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Quicksand", sans-serif;
   text-align: center;
   background: rgba(235, 235, 235, 0.9);
 }
